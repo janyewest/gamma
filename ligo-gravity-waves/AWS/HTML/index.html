@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <title>Live LIGO Gravitational Wave Events</title>
+    <meta charset='UTF-8'/>
+    <link href='favicon.ico' rel='icon' type='image/x-icon'>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 2rem;
+            background: #111;
+            color: #0f0;
+        }
+
+        .event {
+            margin-bottom: 1em;
+            padding: 0.5em;
+            border: 1px solid #0f0;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.2em 0;
+        }
+
+        .label {
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .value {
+            text-align: right;
+        }
+
+        .far-blue {
+            color: #66ccff;
+            font-weight: bold;
+        }
+
+        .far-red {
+            color: #f00;
+            font-weight: bold;
+        }
+
+        .highlight-blue {
+            color: #66ccff;
+            font-weight: bold;
+        }
+
+        .highlight-red {
+            color: #f00;
+            font-weight: bold;
+        }
+
+        button {
+            margin: 0.5em;
+            padding: 0.5em 1em;
+            background: #0f0;
+            color: #111;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #8f8;
+        }
+
+        #glossary,
+        #about {
+            margin-top: 0.5em;
+            border: 1px dashed #0f0;
+            padding: 1.5em;
+            display: none;
+            white-space: normal;
+            text-align: left;
+        }
+
+        #events.hidden {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+<h1>🚨 Live LIGO Gravitational Wave Events</h1>
+
+
+<div id='meta'>
+    <strong>Page Last Updated:</strong> UTC <span id='last-updated'>...</span><br/>
+    <strong>Date Range:</strong> Jan 1, 2025 - current<br/>
+    <strong>Number of Retrieved (most likely) Events:</strong> <span id='event-count'>...</span><br/>
+    <strong>Total Number of (all) Events:</strong> <span id='total-count'>...</span><br/><br/>
+</div>
+
+<div>
+    <button id='sort-by-created'>Sort by Date</button>
+    <button id='sort-by-far'>Sort by FAR</button>
+    <button id='show-glossary'>Glossary</button>
+    <button id='show-about'>About</button>
+</div>
+
+<div id='about'>
+    <br>
+    <strong>Welcome to Live LIGO Gravitational Wave Event site!</strong><br><br><br>
+
+
+    This page aims to display the <em class='highlight-blue'>most likely</em> actual Gravitational Wave
+    candidates<br>
+    that have passed through the Earth <strong>since 1/1/2025</strong>.<br><br>
+
+    <strong>Data Source:</strong> GraceDB (Gravitational Wave Candidate Event Database) is a service operated by the
+    LIGO Scientific Collaboration.<br>
+    It provides a centralized location for aggregating and retrieving information about candidate Gravitational Wave
+    events.<br><br>
+    <a href='https://www.gracedb.ligo.org/' style='color:#8f8; text-decoration:underline;'
+       target='_blank'>
+        More GraceDB Information
+    </a><br><br><br>
+
+    <strong>Number of Retrieved (most likely) Events:</strong> the number of <em class='highlight-blue'>most
+    likely</em> Gravitational Wave candidates<br>
+    in source (LIGO GraceDB) within the date range that passed the <strong>requirements</strong> (below) during data
+    retrieval.<br><br>
+
+    <strong>Total Number of (all) Events:</strong> the total number of all superevents in source (LIGO GraceDB) in
+    date range.<br><br>
+
+    <strong>Page Last Updated:</strong> This is the most recent datetime (UTC) that this site polled GraceDB for events.
+    <br><br>
+
+    <strong>Sort by Date:</strong> This displays the <em>most likely</em> Gravity Wave candidates by datetime DESC,
+    between 1/1/2025 and now.<br><br>
+
+    <strong>Sort by FAR:</strong> This displays the <em>most likely</em> Gravity Wave candidates by FAR ASC, between
+    1/1/2025 and now.<br>
+    According to <strong>LIGO</strong>, <strong>FAR (False Alarm Rate)</strong> is a calculated likelihood that the
+    candidate gravity wave was a real gravity wave,<br>
+    as opposed to terrestrial noise or any other kind of 'false alarm.'<br><br>
+
+    The <em class='highlight-blue'>lower</em> the <strong>FAR</strong> value, the <em class='highlight-blue'>more
+    likely</em> the detection indicates a <em class='highlight-blue'>real</em> Gravitational Wave that passed through
+    the Earth.<br><br>
+
+    The events at the top of the 'Sort by FAR' page are consequently the <em>most likely</em> of the most
+    likely candidates.<br><br>
+
+    <strong class='highlight-blue'>FAR values in Blue:</strong> <em>more likely</em> to be real Gravitational Waves<br>
+    <strong class='highlight-red'>FAR values in Red:</strong> <em>less likely</em> to be real Gravitational Waves
+    <br><br><br>
+
+    The <strong>Requirements</strong> to show on this site are:<br><br>
+
+    * 1/1/2025 &le; GPSTime &le; now<br>
+    * FAR < 2 x 10<sup>-6</sup><br>
+    * Label: EM_READY | RAVEN_ALERT | HIGH_PROFILE & ~INJ & ~DQV<br><br>
+
+    ('|' means BINARY OR; '&' means BINARY AND; '~' means NEGATE)<br><br>
+</div>
+
+<div id='glossary'>
+    <br>
+    <strong>LIGO:</strong> Laser Interferometer, Gravitational-Wave Observatory,<br>
+    Supported by the US National Science Foundation, Operated by Caltech and MIT.<br><br>
+    <a href='https://www.ligo.caltech.edu/' style='color:#8f8; text-decoration:underline;'
+       target='_blank'>
+        More LIGO Info
+    </a><br><br><br>
+
+    <strong>Date Detected:</strong> the datetime of detected event (UTC)<br><br>
+
+    <strong>SuperEvent ID:</strong> the superevent_id given by LIGO GraceDB. Click to view image supplied by
+    LIGO.<br><br>
+
+    <strong>FAR (False Alarm Rate):</strong> The smaller the <strong>FAR</strong>, the <em class='highlight-blue'>more
+    likely</em> a <strong>real</strong> detected Gravitational Wave.<br>
+    One of the main methods to distinguish between a real or noise triggers of any candidate is to<br>
+    calculate the <strong>False Alarm Rate (FAR)</strong>. The main motivation behind using the joint
+    <strong>FAR</strong> between<br>
+    Gravitational Wave (GW) and ElectroMagnetic (EM) triggers is to indicate which candidates should receive additional
+    follow-up.<br>
+    Given the information about the Gravitational Wave candidate and its associated astrophysical counterpart,<br>
+    the coincident <strong>False Alarm Rate (FAR)</strong> is calculated.<br>
+    This is the expected number of events of noise origin produced by the pipeline with a higher ranking statistic<br>
+    than the candidate, per unit of time searched.<br><br>
+    <a href='https://emfollow.docs.ligo.org/userguide/analysis/searches.html#far-significance'
+       style='color:#8f8; text-decoration:underline;'
+       target='_blank'>
+        More FAR Info
+    </a><br><br><br>
+
+    <strong>Instruments:</strong> the specific Gravitational Wave detection instruments that recorded the event.<br><br>
+
+    <strong>L: (LLO) LIGO Livingston Instruments:</strong> Livingston, LA<br><br>
+    <strong>H: (LHO) LIGO Hanford Instruments:</strong> Hanford, WA<br><br>
+    <strong>V: Virgo Instruments:</strong> Pisa, Italy<br><br>
+    <a href='https://www.ligo.caltech.edu/page/ligo-scientific-collaboration'
+       style='color:#8f8; text-decoration:underline;'
+       target='_blank'>
+        More Inustrument Info
+    </a><br><br><br>
+
+    <strong>Pipeline:</strong> the name of the data analysis pipeline(s) that analyzed the Gravitational Wave
+    event.<br><br>
+
+    <strong>GstLAL, MBTA, PyCBC Live,</strong> and <strong>SPIIR</strong> are matched-filtering based analysis
+    pipelines that rapidly identify<br>
+    compact binary merger events, with ≤ 1 minute latencies. A coincident analysis is performed<br>
+    by all pipelines, where candidate events are extracted separately from each detector<br>
+    via matched-filtering and later combined across detectors. All pipelines also implement different<br>
+    kinds of signal-based vetoes to reject instrumental transients that cause<br>
+    large SNR values but can otherwise be easily distinguished from compact binary coalescence signals.<br><br>
+    <a href='https://emfollow.docs.ligo.org/userguide/analysis/searches.html'
+       style='color:#8f8; text-decoration:underline;'
+       target='_blank'>
+        More Pipeline Info
+    </a><br><br><br>
+
+    <strong>Event Type:</strong> the type of astrophysical event that may have caused the detected Gravitational Wave
+    event.<br><br>
+    <strong>CBC (Compact Binary Coalescence):</strong> Gravitational Waves from binary systems consisting of dense
+    compact objects.<br><br>
+    <strong>Burst:</strong> In the context of Gravitational Waves, a signal candidate that is detected without a
+    template and without<br>
+    prior knowledge of the waveform. Examples of potential sources of Gravitational Wave bursts include<br>
+    high mass BBH (binary black hole) mergers, core-collapse supernovae, and cosmic string cusps.<br><br>
+    <a href='https://emfollow.docs.ligo.org/userguide/glossary.html' style='color:#8f8; text-decoration:underline;'
+       target='_blank'>
+        More Glossary Terms Info
+    </a><br><br><br>
+</div>
+
+<div id='events'></div>
+
+<div>
+    <br/>
+    page created by: Jayne Harper <br/>
+    email: jaynemharper@gmail.com<br/>
+    resources:
+    <a href='https://www.ligo.caltech.edu/' style='color:#8f8;' target='_blank'>LIGO</a>,
+    <a href='https://gracedb.ligo.org/' style='color:#8f8;' target='_blank'>GraceDB</a>,
+    <a href='https://supabase.com/' style='color:#8f8;' target='_blank'>Supabase</a>,
+    <a href='https://aws.amazon.com/' style='color:#8f8;' target='_blank'>AWS</a><br/>
+    created: 6/2025<br/>
+</div>
+
+
+<script type='module'>
+    import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+    const supabaseUrl = process.env.SUPABASE_URL
+    const supabaseKey = process.env.SUPABASE_KEY
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    function formatDate(isoString) {
+        const date = new Date(isoString)
+        return date.toLocaleString(undefined, {
+            dateStyle: 'medium',
+            timeStyle: 'short'
+        })
+    }
+
+    function formatInstruments(instrString) {
+        try {
+            const arr = JSON.parse(instrString)
+            return arr.join(', ')
+        } catch {
+            return instrString || 'N/A'
+        }
+    }
+
+    function formatFAR(farVal) {
+        if (typeof farVal !== 'number') return 'N/A'
+        const formatted = farVal.toExponential(3).toUpperCase()
+        const colorClass = farVal < 1e-8 ? 'far-blue' : 'far-red'
+        return `<span class='${colorClass}'>${formatted}</span>`
+    }
+
+    async function fetchLastUpdated() {
+        const {data, error} = await supabase
+            .from('ligo_gravity_waves')
+            .select('inserted_at')
+            .order('inserted_at', {ascending: false})
+
+        if (error) {
+            console.error('Error fetching last updated:', error)
+            return
+        }
+
+        if (data?.[0]) {
+            document.getElementById('last-updated').textContent = new Date(data[0].inserted_at).toLocaleString(undefined, {
+                dateStyle: 'medium',
+                timeStyle: 'short',
+            })
+        }
+    }
+
+    async function loadMetaInfo() {
+        const {count, error: countError} = await supabase
+            .from('ligo_gravity_waves')
+            .select('*', {count: 'exact', head: true})
+
+        if (!countError) {
+            document.getElementById('event-count').textContent = count
+        }
+
+        const {data: totalCountData, error: totalCountError} = await supabase
+            .from('ligo_gravity_waves')
+            .select('total_count')
+            .order('inserted_at', {ascending: false})
+            .limit(1)
+
+        if (!totalCountError && totalCountData?.[0]) {
+            document.getElementById('total-count').textContent = totalCountData[0].total_count
+        }
+    }
+
+    function showOnly(sectionId) {
+        const sections = ['events', 'glossary', 'about']
+        sections.forEach(id => {
+            const el = document.getElementById(id)
+            if (id === sectionId) {
+                el.style.display = id === 'events' ? '' : 'block'
+                el.classList.remove('hidden')
+            } else {
+                el.style.display = 'none'
+                el.classList.add('hidden')
+            }
+        })
+    }
+
+    async function loadEvents(orderBy = 'created') {
+        const ascending = orderBy === 'far'
+        const {data, error} = await supabase
+            .from('ligo_gravity_waves')
+            .select('*')
+            .order(orderBy, {ascending})
+
+        const container = document.getElementById('events')
+        container.innerHTML = ''
+
+        if (error) {
+            console.error('Supabase error:', error)
+            container.innerHTML = `<p style='color:red'>Error: ${error.message}</p>`
+            return
+        }
+
+        if (!data || data.length === 0) {
+            container.innerHTML = `<p>No events found.</p>`
+            return
+        }
+
+        data.forEach(event => {
+            const div = document.createElement('div')
+            div.className = 'event'
+            div.innerHTML = `
+          <div class='row'><span class='label'>Date Detected:</span><span class='value'>${formatDate(event.created)}</span></div>
+          <div class='row'>
+              <span class='label'>SuperEvent ID:</span>
+              <span class='value'>
+                <a href='#' class='toggle-png' data-id='${event.superevent_id}' style='color:#8f8;text-decoration:underline;'>
+                  ${event.superevent_id}
+                </a>
+              </span>
+            </div>
+            <div id='png-${event.superevent_id}' style='display:none; margin-top:0.5em;'></div>
+          <div class='row'><span class='label'>FAR:</span><span class='value'>${formatFAR(event.far)}</span></div>
+          <div class='row'><span class='label'>Instruments:</span><span class='value'>${formatInstruments(event.instruments)}</span></div>
+          <div class='row'><span class='label'>Pipeline:</span><span class='value'>${event.pipeline}</span></div>
+          <div class='row'><span class='label'>Event Type:</span><span class='value'>${event.group}</span></div>
+        `
+            container.appendChild(div)
+        })
+
+        document.querySelectorAll('.toggle-png').forEach(link => {
+            link.addEventListener('click', async (e) => {
+                e.preventDefault()
+                const id = e.target.dataset.id
+                const imgDiv = document.getElementById(`png-${id}`)
+
+                if (imgDiv.style.display === 'none') {
+                    imgDiv.innerHTML = 'Loading image...'
+                    imgDiv.style.display = 'block'
+
+                    const filenamesToTry = [
+                        'bayestar.png',
+                        'bayestar.fits.png',
+                        'cwb.png',
+                        'sky_map.png',
+                        'skymap.png',
+                        'sky_map.fits.png',
+                        'localization.png',
+                        'mly.png'
+                    ]
+
+                    let found = false
+
+                    for (const filename of filenamesToTry) {
+                        const url = `https://gracedb.ligo.org/api/superevents/${id}/files/${filename}`
+                        const img = document.createElement('img')
+                        img.src = url
+                        img.alt = `Sky Map for ${id}`
+                        img.style.maxWidth = '100%'
+                        img.style.border = '1px solid #0f0'
+
+                        // Wrap in a promise so we can await load/error events
+                        try {
+                            await new Promise((resolve, reject) => {
+                                img.onload = resolve
+                                img.onerror = reject
+                            })
+
+                            imgDiv.innerHTML = ''
+                            imgDiv.appendChild(img)
+                            imgDiv.innerHTML = ''
+                            imgDiv.appendChild(img)
+
+                            const caption = document.createElement('div')
+                            caption.textContent = `Image file: ${filename}`
+                            caption.style.marginTop = '0.5em'
+                            caption.style.fontSize = '0.9em'
+                            caption.style.color = '#8f8'
+
+                            imgDiv.appendChild(caption)
+                            found = true
+                            break
+                        } catch (err) {
+                            console.log(`Image failed: ${url}`)
+                        }
+                    }
+
+                    if (!found) {
+                        imgDiv.innerHTML = `<span style='color:red'>No known image formats found for this event.</span>`
+                    }
+
+                } else {
+                    imgDiv.style.display = 'none'
+                }
+            })
+        })
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('sort-by-created').addEventListener('click', () => {
+            showOnly('events')
+            loadEvents('created')
+        })
+
+        document.getElementById('sort-by-far').addEventListener('click', () => {
+            showOnly('events')
+            loadEvents('far')
+        })
+
+        document.getElementById('show-glossary').addEventListener('click', () => {
+            const glossary = document.getElementById('glossary')
+            const isVisible = glossary.style.display === 'block'
+            showOnly(isVisible ? 'events' : 'glossary')
+        })
+
+        document.getElementById('show-about').addEventListener('click', () => {
+            const about = document.getElementById('about')
+            const isVisible = about.style.display === 'block'
+            showOnly(isVisible ? 'events' : 'about')
+        })
+
+        fetchLastUpdated()
+        loadMetaInfo()
+        showOnly('events')
+        loadEvents('created')
+    })
+</script>
+</body>
+</html>
