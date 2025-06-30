@@ -1,5 +1,7 @@
 # 🚨 Live LIGO Gravitational Wave Events
 
+Webste Generated: https://ligo-gravity-waves.s3.us-east-2.amazonaws.com/index.html
+
 A real-time front-end display for active gravitational wave candidates detected by LIGO, using Supabase as a backend
 and live data from LIGO GraceDB.
 
