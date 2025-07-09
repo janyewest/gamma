@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+venvy/
+.env/
+
+# PyCharm project files
+.idea/
+*.iml
+
+# macOS junk
+.DS_Store
+
+# Logs
+*.log
+
+# Secrets or creds (keychains, tokens)
+secrets/
+*.key
+*.pem
+
+# Python dependency stuff
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Cache
+*.cache
+.cache/
+*.egg-info/
+.eggs/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Node modules if you ever go JS
+node_modules/
+
+# Supabase local config
+.supabase/
