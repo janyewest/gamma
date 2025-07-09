@@ -27,7 +27,7 @@ and live data from LIGO GraceDB.
 1. **Clone the repo**
 
 ```bash
-git clone https://github.com/yourusername/ligo-live.git
+git clone https://github.com/janyewest/gamma.git
 cd ligo-live
 ```
 
@@ -38,6 +38,7 @@ Create a .env file in the root of your project with the following:
 ```bash
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_KEY=your-anon-or-service-role-key
+SUPABASE_ACCOUNT=your-supabase-account
 ```
 
 ⚠️ Never commit your .env file. Add it to .gitignore:

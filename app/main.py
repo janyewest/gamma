@@ -7,6 +7,7 @@ from ligo.gracedb.rest import GraceDb
 import pandas as pd
 from supabase import Client, create_client
 
+
 def get_data(url: str, query_ct: str, query_events: str, orderby: list[str]):
     """get GraceDB query response data"""
 
