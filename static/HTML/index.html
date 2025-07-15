@@ -3,7 +3,7 @@
 <head>
     <title>Live LIGO Gravitational Wave Events</title>
     <meta charset='UTF-8'/>
-    <link href='favicon.ico' rel='icon' type='image/x-icon'>
+    <link rel='icon' href='favicon.ico' type='image/x-icon'>
     <style>
         body {
             font-family: sans-serif;
@@ -115,8 +115,8 @@
     LIGO Scientific Collaboration.<br>
     It provides a centralized location for aggregating and retrieving information about candidate Gravitational Wave
     events.<br><br>
-    <a href='https://www.gracedb.ligo.org/' style='color:#8f8; text-decoration:underline;'
-       target='_blank'>
+    <a href='https://www.gracedb.ligo.org/' target='_blank'
+       style='color:#8f8; text-decoration:underline;'>
         More GraceDB Information
     </a><br><br><br>
 
@@ -154,7 +154,7 @@
     The <strong>Requirements</strong> to show on this site are:<br><br>
 
     * 1/1/2025 &le; GPSTime &le; now<br>
-    * FAR < 2 x 10<sup>-6</sup><br>
+    * FAR < 1 x 10<sup>-6</sup><br>
     * Label: EM_READY | RAVEN_ALERT | HIGH_PROFILE & ~INJ & ~DQV<br><br>
 
     ('|' means BINARY OR; '&' means BINARY AND; '~' means NEGATE)<br><br>
@@ -164,8 +164,8 @@
     <br>
     <strong>LIGO:</strong> Laser Interferometer, Gravitational-Wave Observatory,<br>
     Supported by the US National Science Foundation, Operated by Caltech and MIT.<br><br>
-    <a href='https://www.ligo.caltech.edu/' style='color:#8f8; text-decoration:underline;'
-       target='_blank'>
+    <a href='https://www.ligo.caltech.edu/' target='_blank'
+       style='color:#8f8; text-decoration:underline;'>
         More LIGO Info
     </a><br><br><br>
 
@@ -185,9 +185,8 @@
     the coincident <strong>False Alarm Rate (FAR)</strong> is calculated.<br>
     This is the expected number of events of noise origin produced by the pipeline with a higher ranking statistic<br>
     than the candidate, per unit of time searched.<br><br>
-    <a href='https://emfollow.docs.ligo.org/userguide/analysis/searches.html#far-significance'
-       style='color:#8f8; text-decoration:underline;'
-       target='_blank'>
+    <a href='https://emfollow.docs.ligo.org/userguide/analysis/searches.html#far-significance' target='_blank'
+       style='color:#8f8; text-decoration:underline;'>
         More FAR Info
     </a><br><br><br>
 
@@ -196,9 +195,8 @@
     <strong>L: (LLO) LIGO Livingston Instruments:</strong> Livingston, LA<br><br>
     <strong>H: (LHO) LIGO Hanford Instruments:</strong> Hanford, WA<br><br>
     <strong>V: Virgo Instruments:</strong> Pisa, Italy<br><br>
-    <a href='https://www.ligo.caltech.edu/page/ligo-scientific-collaboration'
-       style='color:#8f8; text-decoration:underline;'
-       target='_blank'>
+    <a href='https://www.ligo.caltech.edu/page/ligo-scientific-collaboration' target='_blank'
+       style='color:#8f8; text-decoration:underline;'>
         More Inustrument Info
     </a><br><br><br>
 
@@ -212,9 +210,8 @@
     via matched-filtering and later combined across detectors. All pipelines also implement different<br>
     kinds of signal-based vetoes to reject instrumental transients that cause<br>
     large SNR values but can otherwise be easily distinguished from compact binary coalescence signals.<br><br>
-    <a href='https://emfollow.docs.ligo.org/userguide/analysis/searches.html'
-       style='color:#8f8; text-decoration:underline;'
-       target='_blank'>
+    <a href='https://emfollow.docs.ligo.org/userguide/analysis/searches.html' target='_blank'
+       style='color:#8f8; text-decoration:underline;'>
         More Pipeline Info
     </a><br><br><br>
 
@@ -226,8 +223,8 @@
     template and without<br>
     prior knowledge of the waveform. Examples of potential sources of Gravitational Wave bursts include<br>
     high mass BBH (binary black hole) mergers, core-collapse supernovae, and cosmic string cusps.<br><br>
-    <a href='https://emfollow.docs.ligo.org/userguide/glossary.html' style='color:#8f8; text-decoration:underline;'
-       target='_blank'>
+    <a href='https://emfollow.docs.ligo.org/userguide/glossary.html' target='_blank'
+       style='color:#8f8; text-decoration:underline;'>
         More Glossary Terms Info
     </a><br><br><br>
 </div>
@@ -239,10 +236,10 @@
     page created by: Jayne Harper <br/>
     email: jaynemharper@gmail.com<br/>
     resources:
-    <a href='https://www.ligo.caltech.edu/' style='color:#8f8;' target='_blank'>LIGO</a>,
-    <a href='https://gracedb.ligo.org/' style='color:#8f8;' target='_blank'>GraceDB</a>,
-    <a href='https://supabase.com/' style='color:#8f8;' target='_blank'>Supabase</a>,
-    <a href='https://aws.amazon.com/' style='color:#8f8;' target='_blank'>AWS</a><br/>
+    <a href='https://www.ligo.caltech.edu/' target='_blank' style='color:#8f8;'>LIGO</a>,
+    <a href='https://gracedb.ligo.org/' target='_blank' style='color:#8f8;'>GraceDB</a>,
+    <a href='https://supabase.com/' target='_blank' style='color:#8f8;'>Supabase</a>,
+    <a href='https://aws.amazon.com/' target='_blank' style='color:#8f8;'>AWS</a><br/>
     created: 6/2025<br/>
 </div>
 
@@ -250,8 +247,8 @@
 <script type='module'>
     import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-    const supabaseUrl = process.env.SUPABASE_URL
-    const supabaseKey = process.env.SUPABASE_KEY
+    const supabaseUrl = 'REMOVED'
+    const supabaseKey = '***REMOVED***REMOVED'
     const supabase = createClient(supabaseUrl, supabaseKey)
 
     function formatDate(isoString) {
